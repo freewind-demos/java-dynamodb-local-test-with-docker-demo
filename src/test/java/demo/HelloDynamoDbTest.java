@@ -3,21 +3,17 @@ package demo;
 import com.amazonaws.client.builder.AwsClientBuilder;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
-import me.madhead.aws_junit5.dynamo.v2.DynamoDB;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.testcontainers.dynamodb.DynaliteContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
-import software.amazon.awssdk.regions.Region;
 
 import java.util.List;
 
 import static java.util.Arrays.asList;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-@ExtendWith(DynamoDB.class)
 @Testcontainers
 public class HelloDynamoDbTest {
 
@@ -29,7 +25,7 @@ public class HelloDynamoDbTest {
     @BeforeEach
     public void setup() {
         AwsClientBuilder.EndpointConfiguration endpointConfiguration = new AwsClientBuilder.EndpointConfiguration(
-            "http://" + this.dynamoDB.getHost() + ":" + this.dynamoDB.getFirstMappedPort(), Region.US_EAST_1.id());
+            "http://" + this.dynamoDB.getHost() + ":" + this.dynamoDB.getFirstMappedPort(), "us-east-1");
         this.client = AmazonDynamoDBClientBuilder.standard().withEndpointConfiguration(endpointConfiguration).build();
     }
 
